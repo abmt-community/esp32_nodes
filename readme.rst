@@ -13,7 +13,7 @@ Blinking LED on GPIO8. Important: On some controllers GPIO8 is uses for flash an
 
 echo
 ----
-Starts an UDP and a TCP server on port 12345 and replies every received message. Also UART echo can be enables by uncommenting nodes.
+Starts an UDP and a TCP server on port 12345 and replies every received message. Also UART echo can be enabled by uncommenting nodes.
 
 http_led
 --------
@@ -21,4 +21,4 @@ Slider App that controls GPIO8 pwm. Important: On some controllers GPIO8 is uses
 
 http_led
 --------
-REST-Command esample. You can also set an LED on GPIO8. On some controllers GPIO8 is uses for flash and changing its value will cause a reset!!!
+REST-Command example. Open "http://esp32.local/cmd.html". You can also set an LED on GPIO8 with the command "led" and the value "true". On some controllers GPIO8 is uses for flash and changing its value will cause a reset!!!

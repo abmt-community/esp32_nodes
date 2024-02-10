@@ -1,0 +1,28 @@
+{
+  "model": "test",
+  "runtime": "esp32",
+  "runtime_configs": {
+    "esp32c3": {
+      "idf_path": "/opt/esp-idf",
+      "raster_stack_size": "2048",
+      "serial_port": "/dev/ttyACM0",
+      "serial_baudrate": "1000000",
+      "skip": false
+    },
+    "esp32": {
+      "idf_path": "/opt/esp-idf",
+      "raster_stack_size": "2048",
+      "serial_port": "/dev/ttyACM0",
+      "serial_baudrate": "1000000",
+      "skip": false,
+      "wifi_sleep": "1",
+      "wifi_interval": "100",
+      "sleep": false,
+      "multithreading": false,
+      "enable_wifi": true,
+      "mdns_name": "esp32",
+      "sdkcfg": "c3",
+      "wifi_cfg_h": "./wifi_cfg.h"
+    }
+  }
+}

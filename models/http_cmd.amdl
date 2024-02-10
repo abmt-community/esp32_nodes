@@ -1,0 +1,121 @@
+{
+  "model_is_node": false,
+  "nodes": [
+    {
+      "name": "esp_http",
+      "type": "class",
+      "cfg": {"class":"esp_http","prj":"esp32_nodes","default_rest_data":"{}"},
+      "pos": {"x":-1175,"y":-185},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"rr":{"node":"tcp_server_rr","pin":"rr"}},
+      "default_values": {"rr":""}
+    },{
+      "name": "tcp_server_rr",
+      "type": "class",
+      "cfg": {"class":"tcp_server_rr","prj":"esp32_nodes","port":"80"},
+      "pos": {"x":-1628,"y":-186},
+      "rotate": false,
+      "comment_out": false
+    },{
+      "name": "simple_rest",
+      "type": "class",
+      "cfg": {"class":"simple_rest","prj":"io","url":"cmd","default_rest_data":"{}"},
+      "pos": {"x":-1192,"y":6},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"rr":{"node":"tcp_server_rr","pin":"rr"}},
+      "default_values": {"rr":""}
+    },{
+      "name": "expression",
+      "type": "expression",
+      "cfg": {"function":"a->data.str()","output_name":"out","output_type":"auto","type_header":"","disable_output":false},
+      "pos": {"x":-845,"y":-161},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"simple_rest","pin":"rest_rr"}},
+      "default_values": {"a":""}
+    },{
+      "name": "test_cmd",
+      "type": "class",
+      "cfg": {"class":"json_cond_fwd","prj":"utils","key":"cmd","condition":"test_cmd","fwd_key":"data","default":"{}"},
+      "pos": {"x":-99,"y":-163},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"parse_json_cmd","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "log_cmd",
+      "type": "class",
+      "cfg": {"class":"log_str","prj":"utils","prefix":"cmd: "},
+      "pos": {"x":306,"y":-159},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"str":{"node":"test_cmd","pin":"out"}},
+      "default_values": {"str":""}
+    },{
+      "name": "parse_json_cmd",
+      "type": "class",
+      "cfg": {"class":"parse_json","prj":"utils"},
+      "pos": {"x":-506,"y":-163},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"expression","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "expression_6",
+      "type": "expression",
+      "cfg": {"function":"a->send(\"{}\")","output_name":"out","output_type":"auto","type_header":"","disable_output":true},
+      "pos": {"x":-843,"y":43},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"simple_rest","pin":"rest_rr"}},
+      "default_values": {"a":""}
+    },{
+      "name": "cmd2",
+      "type": "class",
+      "cfg": {"class":"json_cond_fwd","prj":"utils","key":"cmd","condition":"test_cmd2","fwd_key":"data","default":"{}"},
+      "pos": {"x":-95,"y":-12},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"parse_json_cmd","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "log_cmd2",
+      "type": "class",
+      "cfg": {"class":"log_str","prj":"utils","prefix":"cmd2: "},
+      "pos": {"x":291,"y":-9},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"str":{"node":"cmd2","pin":"out"}},
+      "default_values": {"str":""}
+    },{
+      "name": "led",
+      "type": "class",
+      "cfg": {"class":"json_cond_fwd","prj":"utils","key":"cmd","condition":"led","fwd_key":"data","default":"false"},
+      "pos": {"x":-96,"y":155},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"parse_json_cmd","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "gp_8",
+      "type": "class",
+      "cfg": {"class":"gpio_output","prj":"esp32_nodes","pin":"GPIO_NUM_8","disable_during_sleep":false},
+      "pos": {"x":354,"y":158},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"invert","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "invert",
+      "type": "expression",
+      "cfg": {"function":"!a","output_name":"out","output_type":"auto","type_header":"","disable_output":false},
+      "pos": {"x":149,"y":159},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"led","pin":"out"}},
+      "default_values": {"a":""}
+    }
+  ]
+}

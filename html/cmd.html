@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+        17.12.2023:
+        Created with ChatGPT 3.5 and the following prompt:
+
+        Can you write a dark bluish HTML web app that has two input fields and one send button. 
+        The first input is command with the default value "test_cmd". The  second is data with the default value "{}". 
+        When you click the send button send a rest request to /cmd. Use the fetch api. 
+        Send an object with the key "cmd" and and the data of the first input. 
+        The data oft the second input should have the key "data" and the input should be interpreted as a JSON value.
+
+        changes: title
+    -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABMT REST Example: Commands</title>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #94a1b2;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        input {
+            margin: 10px;
+            padding: 5px;
+            background-color: #30404d;
+            color: #94a1b2;
+            border: 1px solid #30404d;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 8px 20px;
+            background-color: #4ca1af;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ABMT REST Example: Commands</h1>
+
+    <label for="cmd">Command:</label>
+    <input type="text" id="cmd" value="test_cmd">
+
+    <br>
+
+    <label for="data">Data (JSON):</label>
+    <input type="text" id="data" value="{}">
+
+    <br>
+
+    <button onclick="sendRequest()">Send</button>
+
+    <script>
+        function sendRequest() {
+            const cmdInput = document.getElementById('cmd');
+            const dataInput = document.getElementById('data');
+
+            const requestData = {
+                cmd: cmdInput.value,
+                data: JSON.parse(dataInput.value)
+            };
+
+            fetch('/cmd', {
+                method: 'POST', // You can adjust the HTTP method as needed
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response as needed
+                console.log('Response:', data);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>

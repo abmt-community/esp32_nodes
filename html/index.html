@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+        17.12.2023:
+        Created with ChatGPT 3.5 and the following prompt (it took a while to get the right prompt):
+
+        Can you write a dark bluish HTML web app that has one slider named "example", that goes form 0 to 100. 
+        Also display the slider value below the slider. When you change the slider it sends its value to /rest. 
+        Use the fetch api. As a response it gets the slider value in return. 
+        Send an empty request at the beginning to get the initial value.
+        Send an empty request every two seconds to keep the value updated.
+
+        Manual changes: Added logic to resend when a request is on going
+    -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABMT REST Example: Values</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #FFFFFF;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #slider-container {
+      text-align: center;
+    }
+
+    #slider-value {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="slider-container">
+    <label for="example">Example:</label>
+    <input type="range" id="example" name="example" min="0" max="100" value="0">
+    <div id="slider-value">Value: 0</div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('example');
+    const sliderValue = document.getElementById('slider-value');
+
+    // Function to update the slider value display
+    const updateSliderValue = () => {
+      sliderValue.innerText = `Value: ${slider.value}`;
+    };
+
+    var request_ongoing = false;
+    var resend_value = false;
+    // Function to send a request to the server
+    const sendRequest = async (value) => {
+      if(request_ongoing){
+        resend_value = true;
+        return;
+      }
+      request_ongoing = true;
+      try {
+        const response = await fetch('/rest', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ value: value }),
+        });
+        request_ongoing = false;
+        if(resend_value){
+          resend_value = false;
+          sendRequest(slider.value);
+          return;
+        }
+        if (response.ok) {
+          const responseData = await response.json();
+          slider.value = responseData.value;
+          updateSliderValue();
+        } else {
+          console.error('Failed to send request:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        request_ongoing = false;
+      }
+    };
+
+    // Initial request to get the initial value
+    sendRequest();
+
+    // Event listener for slider change
+    slider.addEventListener('input', () => {
+      updateSliderValue();
+      sendRequest(slider.value);
+    });
+
+    // Set interval to send empty request every two seconds
+    setInterval(() => {
+      request_ongoing = false;
+      sendRequest();
+    }, 2000);
+  </script>
+</body>
+</html>

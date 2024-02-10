@@ -1,0 +1,20 @@
+{
+  "model": "echo",
+  "runtime": "esp32",
+  "runtime_configs": {
+    "esp32": {
+      "idf_path": "/opt/esp-idf",
+      "sdkcfg": "test",
+      "serial_port": "/dev/ttyACM0",
+      "serial_baudrate": "1000000",
+      "enable_wifi": true,
+      "wifi_cfg_h": "./wifi_cfg.h",
+      "mdns_name": "esp32",
+      "wifi_sleep": "2",
+      "wifi_interval": "1000",
+      "sleep": true,
+      "skip": false,
+      "serial_device": "2"
+    }
+  }
+}

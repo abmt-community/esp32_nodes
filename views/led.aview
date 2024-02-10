@@ -1,0 +1,6 @@
+{
+  "type": "list",
+  "elements": [{"signals":["gpio_input.out"],"type":"scope","time_range":10,"y_max":"auto","y_min":"auto","width":1517,"height":150}],
+  "width": 1517,
+  "height": 852
+}

@@ -1,0 +1,23 @@
+{
+  "model_is_node": false,
+  "nodes": [
+    {
+      "name": "counter",
+      "type": "class",
+      "cfg": {"class":"counter","prj":"math","start":"0","end":"1","step":"1","auto_restart":true},
+      "pos": {"x":-477,"y":-146},
+      "rotate": false,
+      "comment_out": false,
+      "raster": "200ms"
+    },{
+      "name": "gp_8",
+      "type": "class",
+      "cfg": {"class":"gpio_output","prj":"esp32_nodes","pin":"GPIO_NUM_8","disable_during_sleep":false},
+      "pos": {"x":-78,"y":-163},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"counter","pin":"out"}},
+      "default_values": {"in":""}
+    }
+  ]
+}

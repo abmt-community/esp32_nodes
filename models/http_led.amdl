@@ -1,0 +1,129 @@
+{
+  "model_is_node": false,
+  "nodes": [
+    {
+      "name": "esp_http",
+      "type": "class",
+      "cfg": {"class":"esp_http","prj":"esp32_nodes","default_rest_data":"{}"},
+      "pos": {"x":-72,"y":-80},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"rr":{"node":"tcp_server_rr","pin":"rr"}},
+      "default_values": {"rr":""}
+    },{
+      "name": "tcp_server_rr",
+      "type": "class",
+      "cfg": {"class":"tcp_server_rr","prj":"esp32_nodes","port":"80"},
+      "pos": {"x":-525,"y":-81},
+      "rotate": false,
+      "comment_out": false
+    },{
+      "name": "simple_rest",
+      "type": "class",
+      "cfg": {"class":"simple_rest","prj":"io","url":"rest","default_rest_data":"{}"},
+      "pos": {"x":-89,"y":112},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"rr":{"node":"tcp_server_rr","pin":"rr"}},
+      "default_values": {"rr":""}
+    },{
+      "name": "parse_json",
+      "type": "class",
+      "cfg": {"class":"parse_json","prj":"utils"},
+      "pos": {"x":600,"y":-42},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"expression","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "json_value",
+      "type": "class",
+      "cfg": {"class":"json_value","prj":"utils","key":"value","default":"100"},
+      "pos": {"x":918,"y":-42},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"parse_json","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "expression",
+      "type": "expression",
+      "cfg": {"function":"a->data.str()","output_name":"out","output_type":"auto","type_header":"","disable_output":false},
+      "pos": {"x":258,"y":-56},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"simple_rest","pin":"rest_rr"}},
+      "default_values": {"a":""}
+    },{
+      "name": "expression_1",
+      "type": "expression",
+      "cfg": {"function":"{{\"value\",v}}","output_name":"out","output_type":"abmt::json","type_header":"abmt/json.h","disable_output":false},
+      "pos": {"x":1198,"y":238},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"v":{"node":"json_value","pin":"out"}},
+      "default_values": {"v":""}
+    },{
+      "name": "expression_2",
+      "type": "expression",
+      "cfg": {"function":"a->send(j.dump())","output_name":"out","output_type":"auto","type_header":"","disable_output":true},
+      "pos": {"x":1547,"y":97},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"simple_rest","pin":"rest_rr"},"j":{"node":"expression_1","pin":"out"}},
+      "default_values": {"a":"","j":""}
+    },{
+      "name": "pwm_gp8",
+      "type": "class",
+      "cfg": {
+        "class": "pwm",
+        "prj": "esp32_nodes",
+        "pin": "GPIO_NUM_8",
+        "channel": "LEDC_CHANNEL_0",
+        "resolution_in_bits": "13",
+        "freq": "2000",
+        "disable_during_sleep": false
+      },
+      "pos": {"x":2071,"y":-64},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"pt2","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "expression_3",
+      "type": "expression",
+      "cfg": {"function":"a/100","output_name":"out","output_type":"auto","type_header":"","disable_output":false},
+      "pos": {"x":1218,"y":-58},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"json_value","pin":"out"}},
+      "default_values": {"a":""}
+    },{
+      "name": "rt",
+      "type": "base",
+      "cfg": {"node":"rt","data_type":"double","start_value":"0","type_header":"","behavior":"last"},
+      "pos": {"x":1688,"y":-29},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"linearize","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "pt2",
+      "type": "class",
+      "cfg": {"class":"pt2","prj":"control","t":"0.5","d":"1","init_with_first_input":true,"initial_value":"0","initial_value_derivative":"0"},
+      "pos": {"x":1869,"y":-49},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"rt","pin":"out"}},
+      "default_values": {"in":"0"}
+    },{
+      "name": "linearize",
+      "type": "expression",
+      "cfg": {"function":"1-a*a*a","output_name":"out","output_type":"auto","type_header":"","disable_output":false},
+      "pos": {"x":1439,"y":-58},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"expression_3","pin":"out"}},
+      "default_values": {"a":""}
+    }
+  ]
+}

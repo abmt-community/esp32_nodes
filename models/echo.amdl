@@ -1,0 +1,74 @@
+{
+  "model_is_node": false,
+  "nodes": [
+    {
+      "name": "tcp_server_rr",
+      "type": "class",
+      "cfg": {"class":"tcp_server_rr","prj":"esp32_nodes","port":"12345"},
+      "pos": {"x":-532,"y":-211},
+      "rotate": false,
+      "comment_out": false
+    },{
+      "name": "expression",
+      "type": "expression",
+      "cfg": {"function":"a->send(a->data.str())","output_name":"out","output_type":"auto","type_header":"","disable_output":true},
+      "pos": {"x":-116,"y":-223},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"tcp_server_rr","pin":"rr"}},
+      "default_values": {"a":""}
+    },{
+      "name": "expression_1",
+      "type": "expression",
+      "cfg": {"function":"a->data.clear()","output_name":"out","output_type":"auto","type_header":"","disable_output":true},
+      "pos": {"x":-44,"y":-96},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"tcp_server_rr","pin":"rr"}},
+      "default_values": {"a":""}
+    },{
+      "name": "udp_rr",
+      "type": "class",
+      "cfg": {"class":"udp_rr","prj":"esp32_nodes","rx_buff_size":"4096","port":"12345"},
+      "pos": {"x":-441,"y":63},
+      "rotate": false,
+      "comment_out": false
+    },{
+      "name": "expression_2",
+      "type": "expression",
+      "cfg": {"function":"a->send(a->data.str())","output_name":"out","output_type":"auto","type_header":"","disable_output":true},
+      "pos": {"x":-134,"y":46},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"a":{"node":"udp_rr","pin":"rr"}},
+      "default_values": {"a":""}
+    },{
+      "name": "uart",
+      "type": "class",
+      "cfg": {
+        "class": "uart",
+        "prj": "esp32_nodes",
+        "baudrate": "115200",
+        "pin_rx": "GPIO_NUM_1",
+        "pin_tx": "GPIO_NUM_2",
+        "uart_num": "UART_NUM_1",
+        "rx_buffer_size": "256",
+        "tx_buffer_size": "256"
+      },
+      "pos": {"x":-436,"y":201},
+      "rotate": false,
+      "comment_out": true,
+      "inputs": {"in":{"node":"delay","pin":"out"}},
+      "default_values": {"in":""}
+    },{
+      "name": "delay",
+      "type": "base",
+      "cfg": {"node":"delay","data_type":"abmt::blob_shared","start_value":""},
+      "pos": {"x":-443,"y":323},
+      "rotate": true,
+      "comment_out": true,
+      "inputs": {"in":{"node":"uart","pin":"out"}},
+      "default_values": {"in":""}
+    }
+  ]
+}

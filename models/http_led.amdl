@@ -91,7 +91,7 @@
     },{
       "name": "expression_3",
       "type": "expression",
-      "cfg": {"function":"a/100","output_name":"out","output_type":"auto","type_header":"","disable_output":false},
+      "cfg": {"function":"a/100","output_name":"out","output_type":"double","type_header":"","disable_output":false},
       "pos": {"x":1218,"y":-58},
       "rotate": false,
       "comment_out": false,

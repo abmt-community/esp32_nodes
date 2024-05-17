@@ -1,5 +1,5 @@
 {
-  "model": "led",
+  "model": "http_led",
   "runtime": "esp32",
   "runtime_configs": {
     "esp32": {
@@ -13,7 +13,8 @@
       "wifi_sleep": "0",
       "wifi_interval": "0",
       "sleep": false,
-      "skip": false
+      "skip": false,
+      "serial_device": "0"
     }
   }
 }

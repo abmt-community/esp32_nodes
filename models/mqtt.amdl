@@ -1,0 +1,64 @@
+{
+  "model_is_node": false,
+  "nodes": [
+    {
+      "name": "mqtt_pub",
+      "type": "class",
+      "cfg": {
+        "class": "mqtt_pub",
+        "prj": "esp32_nodes",
+        "host": "mqtt://192.168.42.107:1883",
+        "topic": "test_topic",
+        "retain": true,
+        "qos": "0",
+        "host_uri": "mqtt://192.168.1.1:1883"
+      },
+      "pos": {"x":-299,"y":-342},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"to_string","pin":"out"}},
+      "raster": "1s",
+      "default_values": {"in":""}
+    },{
+      "name": "mqtt_sub",
+      "type": "class",
+      "cfg": {
+        "class": "mqtt_sub",
+        "prj": "esp32_nodes",
+        "host": "mqtt://192.168.42.107:1883",
+        "topic": "test_topic",
+        "retain": true,
+        "qos": "0",
+        "host_uri": "mqtt://192.168.1.1:1883"
+      },
+      "pos": {"x":-1049,"y":-184},
+      "rotate": false,
+      "comment_out": false
+    },{
+      "name": "log_str",
+      "type": "class",
+      "cfg": {"class":"log_str","prj":"utils","prefix":"rcv_mmqt_data: "},
+      "pos": {"x":-268,"y":-187},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"str":{"node":"mqtt_sub","pin":"out"}},
+      "default_values": {"str":""}
+    },{
+      "name": "counter",
+      "type": "class",
+      "cfg": {"class":"counter","prj":"math","start":"0","end":"1","step":"0.01","auto_restart":true},
+      "pos": {"x":-1053,"y":-339},
+      "rotate": false,
+      "comment_out": false
+    },{
+      "name": "to_string",
+      "type": "class",
+      "cfg": {"class":"to_string","prj":"utils"},
+      "pos": {"x":-666,"y":-342},
+      "rotate": false,
+      "comment_out": false,
+      "inputs": {"in":{"node":"counter","pin":"out"}},
+      "default_values": {"in":""}
+    }
+  ]
+}

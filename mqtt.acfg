@@ -1,0 +1,19 @@
+{
+  "model": "mqtt",
+  "runtime": "esp32",
+  "runtime_configs": {
+    "esp32": {
+      "idf_path": "/opt/esp-idf-v5.2.1/",
+      "sdkcfg": "esp32",
+      "serial_port": "/dev/ttyUSB0",
+      "serial_device": "0",
+      "enable_wifi": true,
+      "wifi_cfg_h": "./wifi_cfg.h",
+      "mdns_name": "esp32",
+      "wifi_sleep": "3",
+      "wifi_interval": "100",
+      "sleep": false,
+      "skip": false
+    }
+  }
+}

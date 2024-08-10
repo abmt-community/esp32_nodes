@@ -56,7 +56,9 @@ extern "C"{
 }
 
 static void setup_mqtt(std::string uri){
-    if(uri != ""){
+    if(uri == ""){
+         abmt::die("Mqtt host uri not set");
+    }else{
         if(mqtt_uri == ""){
             mqtt_uri = uri;
             esp_mqtt_client_config_t mqtt_cfg = {};
@@ -65,7 +67,7 @@ static void setup_mqtt(std::string uri){
             esp_mqtt_client_register_event(client, (esp_mqtt_event_id_t) ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
         }
         if(uri != mqtt_uri){
-            abmt::die("Espressivs mqtt implementation is buggy and does not allow connections to multiple hosts.");
+            abmt::die("Espressivs mqtt implementation does not allow connections to multiple hosts.");
         }
     }
 }

@@ -19,7 +19,10 @@ struct mqtt_pub{
     std::string param_host_uri = "mqtt://192.168.1.1:1883";
     std::string param_topic = "test_topic";
     bool param_retain = true;
+    bool param_pub_only_changes = true;
     int  param_qos = 0;
+    
+    std::string last_value;
     
     void init();
     void tick();

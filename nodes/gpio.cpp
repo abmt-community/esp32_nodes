@@ -67,7 +67,7 @@ void analog_in::init(){
     }
     
     config = {};
-    config.atten = ADC_ATTEN_DB_11;
+    config.atten = ADC_ATTEN_DB_12; // vmax: 3.98*1.1V=4.378V is limited by vcc
     config.bitwidth = ADC_BITWIDTH_DEFAULT;
 
     adc_oneshot_config_channel(*adc_handle, param_channel, &config);

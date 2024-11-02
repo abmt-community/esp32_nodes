@@ -105,6 +105,12 @@ void mqtt_pub::init(){
 
 void mqtt_pub::tick(){
     mqtt_tick();
+    if(param_pub_only_changes){
+        if(in == last_value){
+            return;
+        }
+        last_value = in;
+    }
     mqtt_publish(param_topic, in, param_qos, param_retain);
 }
 

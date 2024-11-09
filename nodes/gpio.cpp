@@ -4,7 +4,13 @@ using namespace std;
 using namespace esp32_nodes;
 
 void gpio_output::init(){
-    gpio_set_direction(param_pin, GPIO_MODE_OUTPUT);
+    //gpio_set_direction(param_pin, GPIO_MODE_OUTPUT);
+    gpio_config_t io_conf = {};
+    io_conf.intr_type = GPIO_INTR_DISABLE;
+    io_conf.mode = GPIO_MODE_OUTPUT;
+    io_conf.pin_bit_mask = (1 << param_pin);
+
+    gpio_config(&io_conf);
     if(param_disable_during_sleep == false){
         gpio_sleep_sel_dis(param_pin);
     }

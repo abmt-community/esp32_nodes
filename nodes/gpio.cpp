@@ -9,8 +9,8 @@ void gpio_output::init(){
     io_conf.intr_type = GPIO_INTR_DISABLE;
     io_conf.mode = GPIO_MODE_OUTPUT;
     io_conf.pin_bit_mask = (1 << param_pin);
-
     gpio_config(&io_conf);
+    
     if(param_disable_during_sleep == false){
         gpio_sleep_sel_dis(param_pin);
     }
@@ -106,7 +106,11 @@ struct esp_ipin: public abmt::io::ipin{
 struct esp_opin: public abmt::io::opin{
     gpio_num_t out_num;
     esp_opin(gpio_num_t p, bool param_disable_during_sleep): out_num(p){
-        gpio_set_direction(out_num, GPIO_MODE_OUTPUT);
+        gpio_config_t io_conf = {};
+        io_conf.intr_type = GPIO_INTR_DISABLE;
+        io_conf.mode = GPIO_MODE_OUTPUT;
+        io_conf.pin_bit_mask = (1 << p);
+        gpio_config(&io_conf);
         if(param_disable_during_sleep == false){
             gpio_sleep_sel_dis(p);
         }

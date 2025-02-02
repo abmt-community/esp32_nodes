@@ -15,7 +15,7 @@
       "cfg": {"class":"gpio_output","prj":"esp32_nodes","pin":"GPIO_NUM_8","disable_during_sleep":false},
       "pos": {"x":-78,"y":-163},
       "rotate": false,
-      "comment_out": false,
+      "comment_out": true,
       "inputs": {"in":{"node":"counter","pin":"out"}},
       "default_values": {"in":""}
     }

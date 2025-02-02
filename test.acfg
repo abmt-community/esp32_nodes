@@ -1,5 +1,5 @@
 {
-  "model": "test",
+  "model": "blink",
   "runtime": "esp32",
   "runtime_configs": {
     "esp32c3": {
@@ -22,7 +22,9 @@
       "enable_wifi": true,
       "mdns_name": "esp32",
       "sdkcfg": "c3",
-      "wifi_cfg_h": "./wifi_cfg.h"
+      "wifi_cfg_h": "./wifi_cfg.h",
+      "heavy_lifting": true,
+      "serial_device": "0"
     }
   }
 }
